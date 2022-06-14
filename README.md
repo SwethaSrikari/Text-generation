@@ -1,2 +1,2 @@
 # Text-generation
-Experiment with different language models generate text (characters/words)
+Exploring different language models and word embeddings to generate text (next word prediction)
