@@ -2,17 +2,21 @@ import argparse
 import tensorflow as tf
 import numpy as np
 from pathlib import Path
+from tensorflow.keras.layers import Embedding
 
 from models.lstmtrainer import LSTMTrainer
 from models.lstm import Lstm
 from utils.dataset import list_of_sentences, dataset_for_training
+from embeddings.glove import create_embedding_matrix
 
-def train(data_dir: str, log_dir: str, embedding: str, batch_size: int, epochs: int, seed: int):
+def train(data_dir: str, log_dir: str, embedding: str, embedding_dir: str, batch_size: int, epochs: int, seed: int):
 	"""
 	Trains a text generation model using the specified data from a data directory
 
 	:param data_dir: Directory where data is located
 	:param log_dir: Directory where training logs should be saved
+	:param embedding_dir: Embeddings directory
+	:param embedding: type of word embeddings
 	:param epochs: number of epochs to train for
 	:param seed: random state seed
 	"""
@@ -29,17 +33,23 @@ def train(data_dir: str, log_dir: str, embedding: str, batch_size: int, epochs: 
 	# Vocabulary
 	vocab_size = len(tokenizer.get_vocabulary())
 
+	# Hyperparameters
+	embedding_dim = 100
+	lstm_units = 256
+	dropout = 0.1
+	dense_activation = 'softmax'
+
 	# Embedding
 	if embedding == 'none':
 		embedding = Embedding(vocab_size, embedding_dim, mask_zero=True)
 	elif embedding == 'glove100':
-		pass
-	
-	# Hyperparameters
-	embedding_dim = 256
-	lstm_units = 256
-	dropout = 0.1
-	dense_activation = 'softmax'
+		print(f'Using {embedding} embeddings')
+		embedding_matrix = create_embedding_matrix(embedding_dir=embedding_dir, embedding_dim=100, tokenizer=tokenizer)
+		embedding = Embedding(vocab_size,
+							  100,
+							  embeddings_initializer=tf.keras.initializers.Constant(embedding_matrix),
+							  trainable=False,
+							  mask_zero=True)
 
 	# Instiantiate model
 	model = Lstm(vocab_size=vocab_size, embedding=embedding, embedding_dim=embedding_dim,
@@ -75,11 +85,12 @@ if __name__ == '__main__':
 	parser.add_argument('--logs_dir', type=str, default='',
 						help='Path to training logs')
 	parser.add_argument('--embedding', type=str, default='none', help='Type of word embeddings to use', choices=['none', 'glove100'])
+	parser.add_argument('--embedding_dir', type=str, default='', help='Embeddings directory')
 	parser.add_argument('--batch_size', type=int, default=64, help='The desired batch size to use when training')
 	parser.add_argument('--epochs', type=int, default=1, help='Number of epochs to train for')
 	parser.add_argument('--seed', type=int, default=271, help='random state seed')   
 	args = parser.parse_args()
-	train(args.data_dir, args.logs_dir, args.batch_size, args.epochs, args.seed)
+	train(args.data_dir, args.logs_dir, args.embedding, args.embedding_dir, args.batch_size, args.epochs, args.seed)
 
 
 
