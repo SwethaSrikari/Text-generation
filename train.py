@@ -7,7 +7,7 @@ from models.lstmtrainer import LSTMTrainer
 from models.lstm import Lstm
 from utils.dataset import list_of_sentences, dataset_for_training
 
-def train(data_dir: str, log_dir: str, batch_size: int, epochs: int, seed: int):
+def train(data_dir: str, log_dir: str, embedding: str, batch_size: int, epochs: int, seed: int):
 	"""
 	Trains a text generation model using the specified data from a data directory
 
@@ -28,6 +28,12 @@ def train(data_dir: str, log_dir: str, batch_size: int, epochs: int, seed: int):
 
 	# Vocabulary
 	vocab_size = len(tokenizer.get_vocabulary())
+
+	# Embedding
+	if embedding == 'none':
+		embedding = Embedding(vocab_size, embedding_dim, mask_zero=True)
+	elif embedding == 'glove100':
+		pass
 	
 	# Hyperparameters
 	embedding_dim = 256
@@ -36,7 +42,7 @@ def train(data_dir: str, log_dir: str, batch_size: int, epochs: int, seed: int):
 	dense_activation = 'softmax'
 
 	# Instiantiate model
-	model = Lstm(vocab_size=vocab_size, embedding_dim=embedding_dim,
+	model = Lstm(vocab_size=vocab_size, embedding=embedding, embedding_dim=embedding_dim,
 				 lstm_units=lstm_units, dropout=dropout, dense_activation=dense_activation)
 
 	# Optimizer
@@ -68,6 +74,7 @@ if __name__ == '__main__':
 						help='Input directory')
 	parser.add_argument('--logs_dir', type=str, default='',
 						help='Path to training logs')
+	parser.add_argument('--embedding', type=str, default='none', help='Type of word embeddings to use', choices=['none', 'glove100'])
 	parser.add_argument('--batch_size', type=int, default=64, help='The desired batch size to use when training')
 	parser.add_argument('--epochs', type=int, default=1, help='Number of epochs to train for')
 	parser.add_argument('--seed', type=int, default=271, help='random state seed')   
