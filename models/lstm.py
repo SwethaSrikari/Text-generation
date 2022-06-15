@@ -11,17 +11,18 @@ class Lstm(tf.keras.Model):
 
 	The model is sequential with an embedding layer (input), LSTM layer, Dropout and a Dense layer (fully connected output layer)
 
-	:vocab_size: Length of the input vocabulary
-	:embedding_dim: embedding dimensions 
-	:lstm_units: lstm dimension
-	:dropout: fraction of inputs to drop
-	:dense_activation: activation type
+	:param vocab_size: Length of the input vocabulary
+	:param embedding: embedding layer
+	:param embedding_dim: embedding dimensions 
+	:param lstm_units: lstm dimension
+	:param dropout: fraction of inputs to drop
+	:param dense_activation: activation type
 	"""
 
-	def __init__(self, vocab_size: int, embedding_dim: int, lstm_units: int, dropout: float, dense_activation: str):
+	def __init__(self, vocab_size: int, embedding, embedding_dim: int, lstm_units: int, dropout: float, dense_activation: str):
 		super(Lstm, self).__init__()
 		self.model = Sequential()
-		self.embedding_layer = Embedding(vocab_size, embedding_dim, mask_zero=True)
+		self.embedding_layer = embedding
 		self.lstm_layer = LSTM(lstm_units)
 		self.dropout_layer = Dropout(dropout)
 		self.output_layer = Dense(vocab_size, activation=dense_activation)
