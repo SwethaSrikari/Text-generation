@@ -5,15 +5,15 @@ from pathlib import Path
 
 class Evaluator(object):
 	"""
-	To evaluate transformer models
+	Class to evaluate transformer models
 
 	:param model: Model to evaluate
 	:param val_data: Validation dataset
 	:param valid_loss: Loss function to evaluate model
 	:param valid_metric: Validation metrics
 	"""
-	def __init__(self, model, val_data: tf.data.Dataset, valid_loss: tf.keras.losses.Loss = tf.keras.losses.SparseCategoricalCrossentropy(from_logits=True),
-				 valid_metric: tf.keras.metrics.Metric = tf.keras.metrics.SparseCategoricalAccuracy()):
+	def __init__(self, model, val_data: tf.data.Dataset, valid_loss: tf.keras.losses.Loss,
+				 valid_metric: tf.keras.metrics.Metric):
 
 		self.model = model
 		self.val_data = val_data
@@ -44,6 +44,6 @@ class Evaluator(object):
 
 		# Validation logs
 		valid_metric_value = self.valid_metric.result()
-		valid_loss_value = self.valid_loss.result()
+		valid_loss_value = self.valid_loss
 
 		return valid_loss_value
