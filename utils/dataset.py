@@ -9,18 +9,21 @@ from .preprocessing import clean_dataset, tokenize_input, create_ngrams, split_i
 
 def list_of_sentences(data_dir: str) -> typing.List[str]:
 	"""
-	Extracts headlines from each csv file and creates a list of all headlines
+	Extracts headlines and snippets from each csv file and creates a list of all sentences
 
-	Returns a list of strings (a list of headlines(sentences))
+	Returns a list of strings (a list of sentences)
 
-	:data_dir: Directory where all the csv files are located
+	:param data_dir: Directory where all the csv files are located
 	"""
-	all_headlines = []
+	all_sentences = []
 	for filename in os.listdir(data_dir):
 		csv_file = pd.read_csv(data_dir + '/' + filename)
 		headlines = csv_file.headline.values
-		all_headlines.extend(headlines) # creates a list of sentences from all the csv files
-	return all_headlines
+		snippets = csv_file.snippet.values
+		# creates a list of sentences from all the csv files
+		all_sentences.extend(headlines)
+		all_sentences.extend(snippets)
+	return all_sentences
 
 
 def dataset_for_training(headlines: typing.List[str], seed: tf.int64, batch_size: tf.int64):
@@ -41,7 +44,7 @@ def dataset_for_training(headlines: typing.List[str], seed: tf.int64, batch_size
 	"""
 
 	# 1. Pre-processes data for training
-	clean_headlines = clean_dataset(headlines)[:100]
+	clean_headlines = clean_dataset(headlines)
 
 	# 2. Tokenizes input
 	tokenizer = tokenize_input(clean_headlines)
