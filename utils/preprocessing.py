@@ -7,7 +7,7 @@ from tensorflow.keras.layers.experimental.preprocessing import TextVectorization
 
 
 
-def clean_dataset(headlines: typing.List[str]) -> typing.List[str]:
+def clean_dataset(sentences: typing.List[str]) -> typing.List[str]:
 	"""
 	Cleans the dataset
 	1. Removes null values, in this dataset 'Unknown' (found after data exploration)
@@ -15,20 +15,20 @@ def clean_dataset(headlines: typing.List[str]) -> typing.List[str]:
 	2. expand contractions
 	3. remove ascii characters (Deal with - son's, doctor's later)
 
-	Returns a clean list of headlines after pre-processing
+	Returns a clean list of sentences after pre-processing
 
-	:headlines: list of headlines to be cleaned
+	:param sentences: list of sentences to be cleaned
 	"""
 
-	# 1. Removes 'Unknown's' from all_headlines
-	clean_headlines = [i for i in headlines if i != 'Unknown']
+	# 1. Removes 'Unknown's' from all sentences
+	clean_sentences = [i for i in sentences if i != 'Unknown']
 
 	# 2. Expands contracted words like I'm, shouldn't to I am, should not
 	def expand_contractions(inp_sentence: str) -> str:
 		"""
 		Expands all contracted words and returns the 'expanded' sentence
 
-		Returns headlines after expanding contracted words
+		Returns sentences after expanding contracted words
 
 		:inp_sentence: string of words (sentence) to be processed
 		"""
@@ -42,7 +42,7 @@ def clean_dataset(headlines: typing.List[str]) -> typing.List[str]:
 
 		return " ".join(expanded_words)
 
-	clean_headlines = [expand_contractions(lines) for lines in clean_headlines]
+	clean_sentences = [expand_contractions(lines) for lines in clean_sentences]
 
 
 	# Removes ascii characters from the input text with removing apostrphe in son's, doctor's
@@ -53,7 +53,7 @@ def clean_dataset(headlines: typing.List[str]) -> typing.List[str]:
 		2. splits punctuation and words separately, ex - 'steps,' -> 'steps', ',' to reduce vocab size
 		3. removes apostrophe at the beginning or end of a word (to reduce vocab)
 
-		Returns headlines after handling special characters
+		Returns sentences after handling special characters
 
 		:inp_sentences: the sentences to be processed
 		"""
@@ -69,12 +69,12 @@ def clean_dataset(headlines: typing.List[str]) -> typing.List[str]:
 
 		return inp_sentence
 
-	clean_headlines = [handle_special_chars(i) for i in clean_headlines]
+	clean_sentences = [handle_special_chars(i) for i in clean_sentences]
 
-	return clean_headlines
+	return clean_sentences
 
 
-def tokenize_input(headlines: typing.List[str]):
+def tokenize_input(sentences: typing.List[str]):
 	"""
 	Tokenizes the input - assigns a unique integer to each unique word and
 	returns a RaggedTensor instead of a dense Tensor, 
@@ -82,25 +82,25 @@ def tokenize_input(headlines: typing.List[str]):
 
 	Returns a tokenizer
 
-	:headlines: list of headlines after pre-processing
+	:param sentences: list of sentences after pre-processing
 	"""
 
 	# Tokenizing and vectorizing the text for the model to understand
 	# Converts to lowercase and does not strips punctuation and 
 	tokenizer = TextVectorization(standardize='lower', output_mode='int', ragged=True) 
-	tokenizer.adapt(headlines)
+	tokenizer.adapt(sentences)
 
 	return tokenizer
 
 # Creating n-gram sequences
-def create_ngrams(headlines: typing.List[str], tokenizer) -> typing.List[tf.Tensor]:
+def create_ngrams(sentences: typing.List[str], tokenizer) -> typing.List[tf.Tensor]:
 	"""
 	Returns all n-grams for each input sequence
 
-	:headlines: list of headlines after pre-processing
+	:param sentences: list of sentences after pre-processing
 	"""
 	input_sequences = []
-	for headline in headlines:
+	for headline in sentences:
 		tokens = tokenizer(headline)
 		input_sequences.extend([tokens[:i+1] for i in range(1, len(tokens))])
 	return input_sequences
