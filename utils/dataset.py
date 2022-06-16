@@ -26,7 +26,7 @@ def list_of_sentences(data_dir: str) -> typing.List[str]:
 	return all_sentences
 
 
-def dataset_for_training(headlines: typing.List[str], seed: tf.int64, batch_size: tf.int64):
+def dataset_for_training(sentences: typing.List[str], seed: tf.int64, batch_size: tf.int64):
 	"""
 	1. Pre-processes data for training
 	2. Tokenizes input
@@ -38,19 +38,19 @@ def dataset_for_training(headlines: typing.List[str], seed: tf.int64, batch_size
 	Returns training and validation dataset to be used for training a tensorflow model
 	along with the tokenizer
 
-	:headlines: list of headlines
-	:seed: to recreate experiments
-	:batch_size: the number of samples in a batch
+	:param sentences: list of sentences
+	:param seed: to recreate experiments
+	:param batch_size: the number of samples in a batch
 	"""
 
 	# 1. Pre-processes data for training
-	clean_headlines = clean_dataset(headlines)
+	clean_sentences = clean_dataset(sentences)
 
 	# 2. Tokenizes input
-	tokenizer = tokenize_input(clean_headlines)
+	tokenizer = tokenize_input(clean_sentences)
 
 	# 3. Creates ngrams
-	ngram_sequences = create_ngrams(clean_headlines, tokenizer)
+	ngram_sequences = create_ngrams(clean_sentences, tokenizer)
 
 	# 4. Splits data into inputs and targets/labels
 	inputs, targets = split_inputs_labels(ngram_sequences)
@@ -79,12 +79,3 @@ def dataset_for_training(headlines: typing.List[str], seed: tf.int64, batch_size
 	val_dataset = val_dataset.padded_batch(batch_size)
 
 	return train_dataset, val_dataset, tokenizer
-
-
-
-
-
-
-
-
-

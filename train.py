@@ -26,16 +26,16 @@ def train(data_dir: str, log_dir: str, embedding: str, embedding_dir: str, batch
 	tf.random.set_seed(seed)
 
 	# Load dataset
-	headlines = list_of_sentences(data_dir)
+	sentences = list_of_sentences(data_dir)
 
 	# Debug
 	if debug:
 		print('Debugging')
 		# Uses just 100 sentences
-		headlines = headlines[:100]
+		sentences= sentences[:100]
 
 	# Prepare dataset for training
-	train_dataset, val_dataset, tokenizer = dataset_for_training(headlines, seed, batch_size)
+	train_dataset, val_dataset, tokenizer = dataset_for_training(sentences, seed, batch_size)
 
 	# Vocabulary
 	vocab_size = len(tokenizer.get_vocabulary())
@@ -99,7 +99,3 @@ if __name__ == '__main__':
 	parser.add_argument('--debug', type=bool, default=False, help='Uses less data to help debug quickly')
 	args = parser.parse_args()
 	train(args.data_dir, args.logs_dir, args.embedding, args.embedding_dir, args.batch_size, args.epochs, args.seed, args.debug)
-
-
-
-
