@@ -9,7 +9,7 @@ For text generation, sentences from headline and snippet columns are used.
 The csv files can be downloaded from here - https://www.kaggle.com/code/shivamb/beginners-guide-to-text-generation-using-lstms/data
 
 # Data exploration
-The [Data analysis Colab notebook](https://colab.research.google.com/drive/1HNRpc6PxcjBO_-swXn2DVgFUwpYtOLN2#scrollTo=TdVxoIfAjCb8) helps to understand more about the dataset. 
+The [Data analysis](https://colab.research.google.com/drive/1HNRpc6PxcjBO_-swXn2DVgFUwpYtOLN2#scrollTo=TdVxoIfAjCb8)  Colab notebook helps to understand more about the dataset. 
 
 # Training
 To run the model, run the `train.py` script within the `Text-generation` folder with appropriate arguments.
