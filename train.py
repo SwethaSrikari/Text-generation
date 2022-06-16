@@ -81,7 +81,7 @@ if __name__ == '__main__':
 	parser = argparse.ArgumentParser()
 	parser.add_argument('--data_dir', type=str,
 						default='dataset/',
-						help='Input directory')
+						help='Dataset directory')
 	parser.add_argument('--logs_dir', type=str, default='',
 						help='Path to training logs')
 	parser.add_argument('--embedding', type=str, default='none', help='Type of word embeddings to use', choices=['none', 'glove100'])
