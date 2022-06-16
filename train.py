@@ -9,7 +9,7 @@ from models.lstm import Lstm
 from utils.dataset import list_of_sentences, dataset_for_training
 from embeddings.glove import create_embedding_matrix
 
-def train(data_dir: str, log_dir: str, embedding: str, embedding_dir: str, batch_size: int, epochs: int, seed: int):
+def train(data_dir: str, log_dir: str, embedding: str, embedding_dir: str, batch_size: int, epochs: int, seed: int, debug: bool=False):
 	"""
 	Trains a text generation model using the specified data from a data directory
 
@@ -19,6 +19,7 @@ def train(data_dir: str, log_dir: str, embedding: str, embedding_dir: str, batch
 	:param embedding: type of word embeddings
 	:param epochs: number of epochs to train for
 	:param seed: random state seed
+	:param debug: uses less data for faster debugging
 	"""
 
 	# Set seed
@@ -26,6 +27,12 @@ def train(data_dir: str, log_dir: str, embedding: str, embedding_dir: str, batch
 
 	# Load dataset
 	headlines = list_of_sentences(data_dir)
+
+	# Debug
+	if debug:
+		print('Debugging')
+		# Uses just 100 sentences
+		headlines = headlines[:100]
 
 	# Prepare dataset for training
 	train_dataset, val_dataset, tokenizer = dataset_for_training(headlines, seed, batch_size)
@@ -89,8 +96,9 @@ if __name__ == '__main__':
 	parser.add_argument('--batch_size', type=int, default=64, help='The desired batch size to use when training')
 	parser.add_argument('--epochs', type=int, default=1, help='Number of epochs to train for')
 	parser.add_argument('--seed', type=int, default=271, help='random state seed')   
+	parser.add_argument('--debug', type=bool, default=False, help='Uses less data to help debug quickly')
 	args = parser.parse_args()
-	train(args.data_dir, args.logs_dir, args.embedding, args.embedding_dir, args.batch_size, args.epochs, args.seed)
+	train(args.data_dir, args.logs_dir, args.embedding, args.embedding_dir, args.batch_size, args.epochs, args.seed, args.debug)
 
 
 
