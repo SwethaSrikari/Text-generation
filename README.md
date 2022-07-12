@@ -4,22 +4,28 @@ Exploring different language models and word embeddings to generate text (next w
 # Dataset
 The text generation project utilizes data collected from New York times. The data contains information about the comments made on the articles published in New York Times between January and May of 2017 and 2018. The articles csv file contains 16 features about more than 9,000 articles. 
 
-The most common words used in these artcles can summed up using WordCloud
-
-![WordCloud](/images/wordcloud.png)
-
 For text generation, sentences from headline and snippet columns are used.
 
 The csv files can be downloaded from here - https://www.kaggle.com/code/shivamb/beginners-guide-to-text-generation-using-lstms/data
 
 # Data exploration
-The [Data analysis](https://colab.research.google.com/drive/1HNRpc6PxcjBO_-swXn2DVgFUwpYtOLN2#scrollTo=TdVxoIfAjCb8) Colab notebook helps to understand more about the dataset. 
+The [Data analysis](https://colab.research.google.com/drive/1HNRpc6PxcjBO_-swXn2DVgFUwpYtOLN2#scrollTo=TdVxoIfAjCb8) Colab notebook helps to understand more about the dataset.
+
+The most common words used in these articles can summed up using this WordCloud
+
+![WordCloud](/images/wordcloud.png)
+
+Word embeddings are nothing but the weights of the embeddings layer learned by the model while training or the pre-trained word embeddings. Embedding projector visualizations can be used to interpret and visualize the embeddings. 
+
+![Embedding Projector](/images/embedding-projector.png)
+
+**The embeddings of the pre-trained GloVe model are able to correctly understand how words are related to each other. For example, the word `democrat` is similar to `defeated`, `biden` , `kennedy` which makes sense because this data was collected during 2017 and 2018 after `Donald Trump` won the elections. The democrats were defeated and `Joe Biden` and `Kennedy` belong to the Democratic party.**
 
 # Requirements
 To run the `train.py` script and train the models, the libraries listed in the `requiremnets.txt` have to be installed.
 
 # Training
-To run the model, run the `train.py` script within the `Text-generation` folder with appropriate arguments.
+To run the model, run the `train.py` script with appropriate arguments.
 
 ```
 $ python train.py --data_dir <path to dataset> --logs_dir <path to save model logs> --embedding <word embeddings to use> --embedding_dir <path to embeddings> --batch_size <batch_size> --epochs <number of epochs to train for> --seed <random state seed> --debug <for debugging>
@@ -49,3 +55,5 @@ GloVe embeddings - https://nlp.stanford.edu/projects/glove/
 Using GloVe as keras Embedding layer - https://keras.io/examples/nlp/pretrained_word_embeddings/#load-pretrained-word-embeddings
 
 WordCloud - https://www.numpyninja.com/post/nlp-text-data-visualization
+
+Embedding Projector - https://www.tensorflow.org/tensorboard/tensorboard_projector_plugin
