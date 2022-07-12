@@ -2,7 +2,11 @@
 Exploring different language models and word embeddings to generate text (next word prediction)
 
 # Dataset
-The text generation project utilizes data collected from New York times. The data contains information about the comments made on the articles published in New York Times in Jan-May 2017 and Jan-April 2018. The articles csv file contains 16 features about more than 9,000 articles.
+The text generation project utilizes data collected from New York times. The data contains information about the comments made on the articles published in New York Times between January and May of 2017 and 2018. The articles csv file contains 16 features about more than 9,000 articles. 
+
+The most common words used in these artcles can summed up using WordCloud
+
+![WordCloud](/images/wordcloud.png)
 
 For text generation, sentences from headline and snippet columns are used.
 
@@ -43,3 +47,5 @@ Tensorflow embeddings - https://www.tensorflow.org/text/guide/word_embeddings
 GloVe embeddings - https://nlp.stanford.edu/projects/glove/
 
 Using GloVe as keras Embedding layer - https://keras.io/examples/nlp/pretrained_word_embeddings/#load-pretrained-word-embeddings
+
+WordCloud - https://www.numpyninja.com/post/nlp-text-data-visualization
