@@ -19,7 +19,7 @@ Word embeddings are nothing but the weights of the embeddings layer learned by t
 
 ![Embedding Projector](/images/embedding-projector.png)
 
-**The embeddings of the pre-trained GloVe model are able to correctly understand how words are related to each other. For example, the word `democrat` is similar to `defeated`, `biden` , `kennedy` which makes sense because this data was collected during 2017 and 2018 after `Donald Trump` won the elections. The democrats were defeated and `Joe Biden` and `Kennedy` belong to the Democratic party.**
+**The embeddings of the pre-trained GloVe model are able to correctly understand how words are related to each other by how close they are to each other. For example, the word `trump` is closer to `Ivanka`, `Melania` and `Donald`.**
 
 # Requirements
 To run the `train.py` script and train the models, the libraries listed in the `requiremnets.txt` have to be installed.
