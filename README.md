@@ -22,7 +22,7 @@ Word embeddings are nothing but the weights of the embeddings layer learned by t
 **The embeddings of the pre-trained GloVe model are able to correctly understand how words are related to each other by how close they are to each other. For example, the word `trump` is closer to `Ivanka`, `Melania` and `Donald`.**
 
 # Requirements
-To run the `train.py` script and train the models, the libraries listed in the `requiremnets.txt` have to be installed.
+To run the `train.py` script and train the models, the libraries listed in the `requirements.txt` have to be installed.
 
 # Training
 To run the model, run the `train.py` script with appropriate arguments.
@@ -30,6 +30,8 @@ To run the model, run the `train.py` script with appropriate arguments.
 ```
 $ python train.py --data_dir <path to dataset> --logs_dir <path to save model logs> --embedding <word embeddings to use> --embedding_dir <path to embeddings> --batch_size <batch_size> --epochs <number of epochs to train for> --seed <random state seed> --debug <for debugging>
 ```
+
+You can play with the embedding projector and also train models to generate sentences using this [Text-Generation notebook](https://colab.research.google.com/drive/12iMympBfgDKNJXVBM_AyVjitYHV6mrTn#scrollTo=wHGk2B-HzGa_)
 
 # References
 Text pre-processing - https://www.exxactcorp.com/blog/Deep-Learning/text-preprocessing-methods-for-deep-learning
