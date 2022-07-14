@@ -1,6 +1,8 @@
 # Text-generation
 Exploring different language models and word embeddings to generate text (next word prediction)
 
+**NOTE: For now, the goal is to explore different types of models that can be used for generating text and see how each one generates text. I'll add more models as I keep exploring new ones**
+
 # Dataset
 The text generation project utilizes data collected from New York times. The data contains information about the comments made on the articles published in New York Times between January and May of 2017 and 2018. The articles csv file contains 16 features about more than 9,000 articles. 
 
