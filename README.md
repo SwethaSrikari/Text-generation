@@ -17,11 +17,11 @@ The most common words used in these articles can summed up using this WordCloud
 
 ![WordCloud](/images/wordcloud.png)
 
-Word embeddings are nothing but the weights of the embeddings layer learned by the model while training or the pre-trained word embeddings. Embedding projector visualizations can be used to interpret and visualize the embeddings. 
+<!-- Word embeddings are nothing but the weights of the embeddings layer learned by the model while training or the pre-trained word embeddings. Embedding projector visualizations can be used to interpret and visualize the embeddings. 
 
 ![Embedding Projector](/images/embedding-projector.png)
 
-**The embeddings of the pre-trained GloVe model are able to correctly understand how words are related to each other by how close they are to each other. For example, the word `trump` is closer to `Ivanka`, `Melania` and `Donald`.**
+**The embeddings of the pre-trained GloVe model are able to correctly understand how words are related to each other by how close they are to each other. For example, the word `trump` is closer to `Ivanka`, `Melania` and `Donald`.** -->
 
 # Requirements
 To run the `train.py` script and train the models, the libraries listed in the `requirements.txt` have to be installed.
