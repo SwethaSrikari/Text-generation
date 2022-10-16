@@ -15,7 +15,7 @@ The [Data analysis](https://colab.research.google.com/drive/1HNRpc6PxcjBO_-swXn2
 
 The most common words used in these articles can summed up using this WordCloud
 
-![WordCloud](/images/wordcloud.png)
+<!-- ![WordCloud](/images/wordcloud.png) -->
 
 <!-- Word embeddings are nothing but the weights of the embeddings layer learned by the model while training or the pre-trained word embeddings. Embedding projector visualizations can be used to interpret and visualize the embeddings. 
 
